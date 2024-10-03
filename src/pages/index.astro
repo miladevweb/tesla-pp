@@ -1,0 +1,49 @@
+---
+import Layout from '../layout/index.astro'
+import Header from '../components/Header.astro'
+import Section from '../components/Section.astro'
+import HeroSection from '../components/HeroSection.astro'
+---
+
+<Layout title="Tesla &mdash; Just Mila">
+  <Header />
+
+  <!-- scroll-snap para slider -->
+  <main class="snap-y snap-mandatory relative w-full h-screen overflow-x-hidden">
+    <div class="snap-center">
+      <Section
+        title="Disfrute de Tesla"
+        subtitle="Programe una prueba de conduccion hoy mismo"
+        color="white"
+      >
+        <a
+          slot="footer"
+          class="text-white border-[3px] border-white text-sm rounded font-medium px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors bg-white/5 backdrop-blur-sm"
+          href="/facebook"
+          >Prueba de Conduccion</a
+        >
+        <video
+          slot="background"
+          class="object-center object-cover h-full w-full"
+          src="/video.webm"
+          autoplay
+          muted
+          loop
+        ></video>
+      </Section>
+    </div>
+    <div class="snap-center">
+      <HeroSection img="/tesla-auto-2.avif" />
+    </div>
+    <div class="snap-center">
+      <HeroSection img="/accesories.avif" />
+    </div>
+    <div class="snap-center">
+      <HeroSection img="/tesla-auto.avif" />
+    </div>
+
+    <div class="snap-center">
+      <HeroSection img="/tesla-auto-3.avif" />
+    </div>
+  </main>
+</Layout>

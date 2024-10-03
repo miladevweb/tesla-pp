@@ -1,0 +1,18 @@
+---
+import Section from './Section.astro';
+const { img } = Astro.props;
+---
+
+<Section title="Disfrute de Tesla" subtitle="Programe una prueba de conduccion hoy mismo" color="black">
+   <a
+      slot="footer"
+      class="text-white border-[3px] border-white text-sm rounded font-medium px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors bg-white/5 backdrop-blur-sm mr-2"
+      href="#">Prueba de Conduccion</a
+   >
+   <a
+      slot="footer"
+      class="text-gray-200 border-[3px] border-white text-sm rounded font-medium px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors bg-white/5 backdrop-blur-sm ml-2"
+      href="#">Diseño de boton</a
+   >
+   <img src={img} alt="1" slot="background" class="w-full h-full object-center object-cover"/>
+</Section>

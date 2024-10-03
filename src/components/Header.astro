@@ -1,0 +1,114 @@
+---
+import Logo from './Logo.astro'
+---
+
+<header
+  class="py-4 px-10 flex items-center fixed top-0 w-full justify-between text-white z-50"
+  id="landing-header"
+>
+  <div class="flex flex-grow basis-0">
+    <Logo />
+  </div>
+
+  <nav>
+    <ul class="flex text-sm [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2 [&>li>a]:font-medium transition-colors duration-500">
+      <li><a href="#">Model S</a></li>
+      <li><a href="#">Model 3</a></li>
+      <li><a href="#">Model X</a></li>
+      <li><a href="#">Model Y</a></li>
+      <li><a href="#">Powerall</a></li>
+      <li><a href="#">Carga</a></li>
+    </ul>
+  </nav>
+
+  <nav class="flex flex-grow justify-end basis-0">
+    <ul class="flex text-sm [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2 [&>li>a]:font-medium transition-colors duration-500">
+      <li><a href="#">Soporte</a></li>
+      <li><a href="#">Tienda</a></li>
+      <li><a href="#">Cuenta</a></li>
+      <li><a href="#">Menú</a></li>
+    </ul>
+  </nav>
+
+  <div
+    id="menu-dropdown"
+    class={`absolute bg-white/40 backdrop-blur-xl rounded
+         translate-x-[var(--left)] translate-y-[var(--top)]
+         left-0 top-0
+         w-[var(--width)] h-[var(--height)]
+         transition-all duration-500
+         ease-in-out opacity-0 -z-10`}
+  >
+  </div>
+</header>
+
+<script>
+  // const listItem = document.querySelectorAll<Element>('#landing-header li');
+  // const menuBackDrop = document.querySelector<HTMLElement>('#menu-dropdown');
+
+  // listItem.forEach((item: HTMLLIElement) => {
+  //    item.addEventListener('mouseenter', () => {
+  //       /* obtiene las dimensiones de una caja */
+  //       const { left, top, width, height } = item.getBoundingClientRect();
+  //       // const { clientHeight, clientWidth } = item;
+
+  //       console.log(`left: ${left}`, `top: ${top}`, `width: ${width}`, `height: ${height}`);
+  //       // console.log(`clientHeight: ${clientHeight}`, `clientWidth: ${clientWidth}`);
+  //       menuBackDrop.style.setProperty('--left', `${left}px`);
+  //       menuBackDrop.style.setProperty('--top', `${top}px`);
+  //       menuBackDrop.style.setProperty('--width', `${width}px`);
+  //       menuBackDrop.style.setProperty('--height', `${height}px`);
+
+  //       menuBackDrop.style.opacity = '1';
+  //    });
+  //    item.addEventListener('mouseleave', () => {
+  //       menuBackDrop.style.opacity = '0';
+  //    });
+  // });
+
+  const listItem = document.querySelectorAll<HTMLLIElement>('#landing-header li')
+  const menuBackDrop = document.querySelector<HTMLElement>('#menu-dropdown')
+
+  listItem.forEach((item) => {
+    item.addEventListener('mouseenter', () => {
+      const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = item
+      menuBackDrop.style.setProperty('--left', `${offsetLeft}px`)
+      menuBackDrop.style.setProperty('--top', `${offsetTop}px`)
+      menuBackDrop.style.setProperty('--width', `${offsetWidth}px`)
+      menuBackDrop.style.setProperty('--height', `${offsetHeight}px`)
+
+      menuBackDrop.style.opacity = '1'
+    })
+
+    item.addEventListener('mouseleave', () => {
+      menuBackDrop.style.opacity = '0'
+    })
+  })
+</script>
+
+<script>
+  const $header = document.querySelector<HTMLDivElement>('#landing-header')
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px' /* En cuanto se vea el elemento */,
+    threshold: 0.9 /* porcentaje de visibilidad */,
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      /* entry un objeto IntersectionObserver / isIntersecting es un booleano */
+      const { isIntersecting } = entry
+      /* entry.target es el elemento seleccionado */
+
+      if (isIntersecting) {
+        const color = entry.target.getAttribute('data-header-color')
+        $header.style.color = color
+      }
+    })
+  }, observerOptions)
+
+  const $sections = document.querySelectorAll('.landing-section')
+  $sections.forEach((section) => observer.observe(section))
+  /* observe es un metodo de IO que añade ELEMENTO$ al objeto de tipo IO */
+</script>
